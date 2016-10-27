@@ -1,5 +1,6 @@
 # holiday_test - program to generate console or file output with holidays for certain years and regions
 
+```
 regions = {
   deutschland:
   {
@@ -27,3 +28,4 @@ result.each do |output|
   output.to_console
   output.to_archive
 end
+```
