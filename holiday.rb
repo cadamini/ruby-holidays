@@ -49,6 +49,7 @@ class Result
       to_file
       to_zip(archive)
     end
+    Files.delete(:templates)
   end
 
   def to_console
@@ -74,16 +75,31 @@ class Result
   end
 end
 
+class Files
+  def self.delete(pattern)
+    case pattern
+    when :archives
+      Dir['*_templates.zip'].each do |f|
+        File.delete(f)
+      end
+    when :templates
+      Dir['*.hct'].each do |f|
+        File.delete(f)
+      end
+    end
+  end
+end
+
 class TemplateFileGenerator
   attr_reader :years, :regions
 
-  def initialize(years, regions)
+  def initialize()
     @years = years
     @regions = regions
-    delete_old_hct_and_zip_files
   end
 
-  def run
+  def self.run(years:, regions:)
+    Files.delete(:archives)
     results = []
     years.each do |year|
       regions.each do |country, region|
@@ -102,12 +118,5 @@ class TemplateFileGenerator
     end
     results
   end
-
-  private
-
-  def delete_old_hct_and_zip_files
-    Dir['*.hct', '*_templates.zip'].each do |f|
-      File.delete(f)
-    end
-  end
 end
+
