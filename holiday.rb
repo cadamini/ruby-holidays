@@ -28,7 +28,7 @@ class Output
   end
 
   def header
-    "#{year.strftime('%Y')};#{country.capitalize};#{region_name.to_s};"
+    "#{year.strftime('%Y')};#{country.capitalize}, #{region_name.to_s}"
   end
 
   def self.generate_date_and_name(key)
