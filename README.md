@@ -1,5 +1,6 @@
 # holiday_test - program to generate console or file output with holidays for certain years and regions
 
+### main program example
 ```
 regions = {
   deutschland:
@@ -23,9 +24,12 @@ regions = {
   }
 }
 
-result = TemplateFileGenerator.new([2016, 2017], regions).run
+result = TemplateFileGenerator.run(years: [2016, 2017], regions: regions)
 result.each do |output|
   output.to_console
   output.to_archive
 end
 ```
+
+
+
