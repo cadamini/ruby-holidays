@@ -1,4 +1,6 @@
-# holiday_test - program to generate console or file output with holidays for certain years and regions
+# holiday
+
+## program to generate console and / or file output with holidays for certain years and regions.
 
 ### main program example
 ```
@@ -26,10 +28,12 @@ regions = {
 
 result = TemplateFileGenerator.run(years: [2016, 2017], regions: regions)
 result.each do |output|
-  output.to_console
+  output.to_console # optional
   output.to_archive
 end
 ```
+
+The application generates a zip file per year in the program folder which contains the calendar template files in a fix format.
 
 
 
