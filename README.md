@@ -3,7 +3,17 @@
 ## program to generate console and / or file output with holidays for certain years and regions.
 
 ### main program example
+
+### To start the program
+
+1) Run bundle install
+2) Run ruby run.rb with one or more years as command line argument, e.g.
+   ruby run.rb 2016 2017 2018
+
+
 ```
+require_relative 'holiday'
+
 regions = {
   deutschland:
   {
@@ -26,10 +36,13 @@ regions = {
   }
 }
 
-result = TemplateFileGenerator.run(years: [2016, 2017], regions: regions)
-result.each do |output|
-  output.to_console # optional
-  output.to_archive
+Files.delete(:archives)
+ARGV.each do |args|
+  result = TemplateFileGenerator.run(year: args.to_i, regions: regions)
+  result.each do |output|
+    output.to_console # optional
+    output.to_archive
+  end
 end
 ```
 

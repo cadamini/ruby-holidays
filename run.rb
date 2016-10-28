@@ -22,8 +22,11 @@ regions = {
   }
 }
 
-result = TemplateFileGenerator.run(years: [2016, 2017], regions: regions)
-result.each do |output|
-  output.to_console # optional
-  output.to_archive
+Files.delete(:archives)
+ARGV.each do |args|
+  result = TemplateFileGenerator.run(year: args.to_i, regions: regions)
+  result.each do |output|
+    output.to_console # optional
+    output.to_archive
+  end
 end

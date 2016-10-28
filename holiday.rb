@@ -98,22 +98,19 @@ class TemplateFileGenerator
     @regions = regions
   end
 
-  def self.run(years:, regions:)
-    Files.delete(:archives)
+  def self.run(year:, regions:)
     results = []
-    years.each do |year|
-      regions.each do |country, region|
-        region.each do |region_code, region_name|
-          template_file = Output.new(
-              year: year,
-              country: country,
-              region_code: region_code,
-              region_name: region_name
-            )
+    regions.each do |country, region|
+      region.each do |region_code, region_name|
+        template_file = Output.new(
+            year: year,
+            country: country,
+            region_code: region_code,
+            region_name: region_name
+          )
 
-          holidays = Holiday.get_holidays_for(year: year, region: region_code)
-          results << Result.new(template_file, holidays)
-        end
+        holidays = Holiday.get_holidays_for(year: year, region: region_code)
+        results << Result.new(template_file, holidays)
       end
     end
     results
