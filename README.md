@@ -2,14 +2,15 @@
 
 ## program to generate console and / or file output with holidays for certain years and regions.
 
-### main program example
-
 ### To start the program
 
-1) Run bundle install
-2) Run ruby run.rb with one or more years as command line argument, e.g.
-   ruby run.rb 2016 2017 2018
+1. Run bundle install
 
+2. Run ruby run.rb with one or more years, e.g.
+   ```ruby run.rb 2016 2017 2018```
+
+Notes: 
+1. Calendar files are deleted after the holiday creation and only zip files remain in the folder.
 
 ```
 require_relative 'holiday'
