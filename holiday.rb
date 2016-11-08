@@ -5,10 +5,17 @@ require 'rubygems'
 require 'zip'
 
 class Holiday
-  def self.get_holidays_for(year:, region:)
+  def self.get_holidays_for(year:, region:, excluded_days:)
+
     holidays = Holidays.cache_between(
-      Date.new(year, 1, 1), Date.new(year, 12, 31), region
+      Date.new(year, 1, 1), Date.new(year, 12, 31), region, :informal
     )
+
+    # delete exluded days
+    excluded_days.each do |day|
+      holidays.delete_if { |m| m[:name] == day }
+    end
+
     # potential duplicates, e.g. Reformationstag 2017
     holidays.uniq { |m| m[:name] }
   end
@@ -93,12 +100,7 @@ end
 class TemplateFileGenerator
   attr_reader :years, :regions
 
-  def initialize()
-    @years = years
-    @regions = regions
-  end
-
-  def self.run(year:, regions:)
+  def self.run(year:, regions:, excluded_days:)
     results = []
     regions.each do |country, region|
       region.each do |region_code, region_name|
@@ -109,7 +111,7 @@ class TemplateFileGenerator
             region_name: region_name
           )
 
-        holidays = Holiday.get_holidays_for(year: year, region: region_code)
+        holidays = Holiday.get_holidays_for(year: year, region: region_code, excluded_days: excluded_days)
         results << Result.new(template_file, holidays)
       end
     end

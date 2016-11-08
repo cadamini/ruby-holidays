@@ -19,12 +19,26 @@ regions = {
   frankreich:
   {
     fr: 'Gesamt'
+  },
+  england:
+  {
+    gb: 'Gesamt'
+  },
+  america:
+  {
+    us: 'Gesamt'
   }
 }
 
+# as the library returns informal holidays as well, we need to exclude some
+excluded_days = [
+  'Heilig Abend', 'Weiberfastnacht', 'Rosenmontag', 'Aschermittwoch', # de*
+  "April Fool's Day", "Valentine's Day", "Father's Day" # us
+]
+
 Files.delete(:archives)
 ARGV.each do |args|
-  result = TemplateFileGenerator.run(year: args.to_i, regions: regions)
+  result = TemplateFileGenerator.run(year: args.to_i, regions: regions, excluded_days: excluded_days)
   result.each do |output|
     output.to_console # optional
     output.to_archive
