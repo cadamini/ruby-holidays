@@ -1,17 +1,17 @@
-# holiday
+## Generate console or file output with holidays for certain years and regions
 
-## program to generate console and / or file output with holidays for certain years and regions.
-
-### To start the program
-
-1. Run bundle install
-
-2. Run ruby run.rb with one or more years, e.g.
+1. Clone the repo.
+2. Run `bundle install`.
+3. Start the run.rb file with one or more years:
    ```ruby run.rb 2016 2017 2018```
 
-```
-require_relative 'holiday'
+### Configuration
 
+Configure different options directly in the code:
+
+**Regions**
+
+```
 regions = {
   deutschland:
   {
@@ -33,19 +33,16 @@ regions = {
     fr: 'Gesamt'
   }
 }
-
-Files.delete(:archives)
-ARGV.each do |args|
-  result = TemplateFileGenerator.run(year: args.to_i, regions: regions)
-  result.each do |output|
-    output.to_console # optional
-    output.to_archive
-  end
-end
 ```
 
-Notes: 
+**Output**
 
-The application generates a zip file per year in the program folder which contains the calendar template files in a fix format. Calendar files are deleted after the holiday creation and only zip files remain in the folder.
+```
+output.to_console # optional
+output.to_archive
+```
 
+The application created one zip file per year. 
+
+You have to delete the files manually.
 
